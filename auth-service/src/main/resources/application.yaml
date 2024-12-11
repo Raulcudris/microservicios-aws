@@ -1,0 +1,9 @@
+server:
+  port: 8005
+spring:
+  application:
+    name: msvc-auth
+  config:
+    import: configserver:http://localhost:8888/
+
+application-title: msvc-auth
