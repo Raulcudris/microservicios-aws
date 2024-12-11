@@ -7,7 +7,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/Raulcudris/arquictetura-microservicios-spring.git
+          uri: https://github.com/Raulcudris/microservicios-aws.git
           search-paths: config
 
 server:

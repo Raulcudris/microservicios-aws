@@ -4,9 +4,9 @@ spring:
       ddl-auto: update
     database: postgresql
   datasource:
-    url: jdbc:postgresql://localhost:5432/microservice
-    username: ${POSTGRES_USER:postgres}
-    password: ${POSTGRES_PASSWORD:55}
+    url: jdbc:postgresql:microservice.ctwe0yqymv49.us-east-1.rds.amazonaws.com:5432/microservice
+    username: postgres
+    password: amisimegustaeso*
 
 eureka:
   instance:
