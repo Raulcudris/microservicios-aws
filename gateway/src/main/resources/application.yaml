@@ -5,7 +5,7 @@ spring:
   application:
     name: msvc-gateway
   config:
-    import: configserver:http://localhost:8888/ # Importa la configuración desde el Config Server
+    import: configserver:http://config-server:8888/ # Importa la configuración desde el Config Server
 
   cloud:
     gateway:
@@ -19,7 +19,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/ # Cambia localhost por el nombre del contenedor
+      default-zone: http://eureka-server:8761/eureka # Cambia localhost por el nombre del contenedor
     register-with-eureka: true # Registrar el Gateway en Eureka
     fetch-registry: true # Obtener información de los servicios registrados
 

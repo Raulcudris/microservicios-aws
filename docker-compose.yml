@@ -5,21 +5,16 @@ services:
     container_name: postgres
     image: postgres:latest
     environment:
-      POSTGRES_USER: POSTGRES_USER:postgres
-      POSTGRES_PASSWORD: POSTGRES_PASSWORD:55
-      POSTGRES_DB: POSTGRES_DB:-microservice
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 55
+      POSTGRES_DB: microservice
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - data-postgres:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    restart: always
     networks:
       - spring
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    restart: unless-stopped
 
   config-server:
     container_name: config-server
@@ -31,9 +26,8 @@ services:
     networks:
       - spring
     depends_on:
-      postgres:
-        condition: service_healthy
-    restart: unless-stopped
+      - postgres
+    restart: always
 
   eureka-server:
     container_name: eureka-server
@@ -46,9 +40,8 @@ services:
     networks:
       - spring
     depends_on:
-      config-server:
-        condition: service_started
-    restart: unless-stopped
+      - config-server
+    restart: always
 
   gateway-services:
     container_name: gateway-services
@@ -61,9 +54,9 @@ services:
     networks:
       - spring
     depends_on:
-      eureka-server:
-        condition: service_started
-    restart: unless-stopped
+      - config-server
+      - eureka-server
+    restart: always
 
   user-services:
     container_name: user-services
@@ -75,9 +68,8 @@ services:
     networks:
       - spring
     depends_on:
-      gateway-services:
-        condition: service_started
-    restart: unless-stopped
+      - gateway-services
+    restart: always
 
   auth-services:
     container_name: auth-services
@@ -89,13 +81,12 @@ services:
     networks:
       - spring
     depends_on:
-      gateway-services:
-        condition: service_started
-    restart: unless-stopped
+      - gateway-services
+    restart: always
 
 volumes:
-  postgres_data:
+  data-postgres:
 
 networks:
   spring:
-    driver: bridge
+    name: spring
