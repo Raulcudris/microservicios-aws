@@ -11,12 +11,10 @@ application-title: msvc-user
 
 eureka:
   client:
-    service-url:
-      default-zone: http://eureka-server:8761/ # Dirección del servidor Eureka
-    register-with-eureka: true # Registrar este servicio en Eureka
-    fetch-registry: true # Obtener información de otros servicios registrados en Eureka
-
-logging:
-  level:
-    root: INFO
-    com.example.msvc-user: DEBUG # Ajusta el nivel de logs para facilitar la depuración del servicio
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    hostname: localhost
+    

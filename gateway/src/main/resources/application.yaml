@@ -18,11 +18,9 @@ spring:
 
 eureka:
   client:
-    service-url:
-      default-zone: http://eureka-server:8761/eureka # Cambia localhost por el nombre del contenedor
-    register-with-eureka: true # Registrar el Gateway en Eureka
-    fetch-registry: true # Obtener información de los servicios registrados
-
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG # Nivel de depuración para facilitar la identificación de problemas
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    hostname: localhost

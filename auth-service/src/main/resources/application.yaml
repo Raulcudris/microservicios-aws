@@ -11,10 +11,12 @@ application-title: msvc-auth
 
 eureka:
   client:
-    service-url:
-      default-zone: http://eureka-server:8761/ # Dirección del servidor Eureka
-    register-with-eureka: true # Registrar este servicio en Eureka
-    fetch-registry: true # Obtener información de otros servicios registrados en Eureka
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    hostname: localhost
 
 logging:
   level:
