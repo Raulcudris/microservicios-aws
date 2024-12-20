@@ -11,14 +11,10 @@ application-title: msvc-auth
 
 eureka:
   client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://eureka-server:8761/eureka/
-  instance:
-    hostname: localhost
+    fetch-registry: true
+    register-whit-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    instance:
+      hostname: localhost
 
-logging:
-  level:
-    root: INFO
-    com.example.msvc-auth: DEBUG # Ajusta el nivel de logs para facilitar la depuración del servicio
