@@ -1,8 +1,6 @@
 package com.makiia.user_service.model;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-
 import javax.persistence.Embeddable;
 
 @Embeddable

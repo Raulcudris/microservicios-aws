@@ -1,8 +1,10 @@
-package com.makiia.user_service.model;
+package com.makiia.job_service.model;
+
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -11,7 +13,8 @@ import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Getter
-public abstract class BaseEntity implements Serializable {
+public class BaseEntity implements Serializable {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -22,4 +25,5 @@ public abstract class BaseEntity implements Serializable {
 
     @UpdateTimestamp
     private LocalDateTime updateTimestamp;
+
 }

@@ -1,9 +1,22 @@
 server:
   port: 8004
+
 spring:
   application:
     name: msvc-user
   config:
-    import: configserver:http://localhost:8888/
+    import: configserver:http://localhost:8888/ # Importa la configuración desde el Config Server
 
 application-title: msvc-user
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka # Dirección del servidor Eureka
+    register-with-eureka: true # Registrar este servicio en Eureka
+    fetch-registry: true # Obtener información de otros servicios registrados en Eureka
+
+logging:
+  level:
+    root: INFO
+    com.example.msvc-user: DEBUG # Ajusta el nivel de logs para facilitar la depuración del servicio

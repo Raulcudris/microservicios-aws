@@ -1,5 +1,4 @@
 package com.makiia.auth_service.service;
-
 import com.makiia.auth_service.client.UserServiceClient;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

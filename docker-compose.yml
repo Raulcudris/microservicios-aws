@@ -1,0 +1,101 @@
+version: "3.9"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: POSTGRES_USER:postgres
+      POSTGRES_PASSWORD: POSTGRES_PASSWORD:55
+      POSTGRES_DB: POSTGRES_DB:-microservice
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - spring
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  config-server:
+    container_name: config-server
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    networks:
+      - spring
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  eureka-server:
+    container_name: eureka-server
+    build:
+      context: ./eureka-server
+      dockerfile: Dockerfile
+    hostname: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - spring
+    depends_on:
+      config-server:
+        condition: service_started
+    restart: unless-stopped
+
+  gateway-services:
+    container_name: gateway-services
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    hostname: gateway-services
+    ports:
+      - "8080:8080"
+    networks:
+      - spring
+    depends_on:
+      eureka-server:
+        condition: service_started
+    restart: unless-stopped
+
+  user-services:
+    container_name: user-services
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    ports:
+      - "8004:8004"
+    networks:
+      - spring
+    depends_on:
+      gateway-services:
+        condition: service_started
+    restart: unless-stopped
+
+  auth-services:
+    container_name: auth-services
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    ports:
+      - "8005:8005"
+    networks:
+      - spring
+    depends_on:
+      gateway-services:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  spring:
+    driver: bridge

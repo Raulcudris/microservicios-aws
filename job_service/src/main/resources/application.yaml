@@ -1,0 +1,19 @@
+server:
+  port: 8002
+
+application-title: msvc-jobservice
+
+spring:
+  application:
+    name: msvc-jobservice
+  config:
+    import: configserver:http://localhost:8888/
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic:
+      name: notificationTopic
+
+
