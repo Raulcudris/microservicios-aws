@@ -21,7 +21,7 @@ eureka:
     fetch-registry: true # Habilitar la obtención de servicios registrados
     register-with-eureka: true # Registrar el Gateway en Eureka
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka-server:8761/eureka/
   instance:
     prefer-ip-address: true # Usar IP para el registro
     hostname: localhost # Cambia según el entorno
